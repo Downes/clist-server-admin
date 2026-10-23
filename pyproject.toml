@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clist-server-admin"
+version = "0.1.0"
+description = "Generic admin-editable settings pattern, shared across the /srv/apps backends behind CList's App Settings panel."
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+fastapi = ["fastapi", "aiosqlite"]
+redis = ["fastapi", "redis"]
+
+[tool.setuptools.packages.find]
+include = ["clist_server_admin*"]
