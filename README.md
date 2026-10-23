@@ -21,17 +21,20 @@ local copy and should be kept in sync with that file by hand.
 
 Never install from a branch or tag — both are mutable, so a pin to `main`
 can silently change what an app runs on a later `pip install`. Pin every
-app's `requirements.txt` to the exact commit SHA that was reviewed:
+app's `requirements.txt` to the exact commit SHA that was reviewed, as a
+GitHub archive-tarball URL (**not** a `git+https://` VCS URL — pip's git
+backend needs the `git` binary, which plain `python:*-slim` base images
+don't have, and adding it means editing every adopting app's Dockerfile):
 
 ```
-clist-server-admin @ git+https://github.com/Downes/clist-server-admin.git@<full-sha>
+clist-server-admin @ https://github.com/Downes/clist-server-admin/archive/<full-sha>.tar.gz
 ```
 
 For the FastAPI or Redis variants, add the matching extra:
 
 ```
-clist-server-admin[fastapi] @ git+https://github.com/Downes/clist-server-admin.git@<full-sha>
-clist-server-admin[redis] @ git+https://github.com/Downes/clist-server-admin.git@<full-sha>
+clist-server-admin[fastapi] @ https://github.com/Downes/clist-server-admin/archive/<full-sha>.tar.gz
+clist-server-admin[redis] @ https://github.com/Downes/clist-server-admin/archive/<full-sha>.tar.gz
 ```
 
 Bumping an app to a newer commit is a deliberate, one-app-at-a-time change:
